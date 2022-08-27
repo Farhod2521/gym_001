@@ -1,0 +1,110 @@
+{% extends 'base.html' %}  
+{% block content %} 
+{% load vaqt %} <!-- Layout container -->
+    <div class="layout-page">
+      
+
+
+  
+<!-- / Navbar -->
+
+      
+
+      <!-- Content wrapper -->
+      <div class="content-wrapper">
+
+        <!-- Content -->
+        
+          <div class="container-xxl flex-grow-1 container-p-y">
+            
+            
+<h4 class="fw-bold py-3 mb-4">
+  <span class="text-muted fw-light">Ro'yhat/</span> Mijozlar Ro'yhati
+</h4>
+
+
+<hr class="my-5">
+
+<!-- Striped Rows -->
+<div class="card">
+  <h5 class="card-header">Zal ro'yhati</h5>
+  <div class="table-responsive text-nowrap">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Rasm</th>
+          
+          <th>Ism Familya</th>
+          <th>Telfon raqam</th>
+          <th>Kun</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody class="table-border-bottom-0">
+        {% for i in customers %}
+        {% if i|in_data > 25 %}
+        <tr>
+          <td style="color: red;">{{  forloop.counter }}</td>
+          <td>
+            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+              <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Lilian Fuller">
+                <img src="{{ i.image.url }}" alt="Avatar" class="rounded-circle">
+              </li>
+            </ul>
+          </td>
+          
+          <td><strong ><a style="color: red;" href="{% url 'customers_detail' i.pk %}"> {{ i.full_name }}</a></strong></td>
+          <td style="color: red;">{{i.phone}}</td>
+          <td style="color: red;"><span class="badge bg-label-primary me-1" >{{  i | in_data }}</span></td>
+          <td>
+            <div class="dropdown">
+              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'edit' i.pk %}"><i class="bx bx-edit-alt me-1"></i> Tahrirlash</a>
+                <a class="dropdown-item" href="{% url 'customers_delete' i.pk %}"><i class="bx bx-trash me-1"></i> O'chirish</a>
+               </div>
+            </div>
+          </td>
+        </tr>
+        {% else %}
+
+        
+        <tr>
+          <td>{{  forloop.counter }}</td>
+          <td>
+            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+              <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Lilian Fuller">
+               {% if i.image  %}
+                <img src="{{ i.image.url }}" alt="Avatar" class="rounded-circle">
+                {% endif %}
+              </li>
+            </ul>
+          </td>
+          
+         <td><strong><a href="{% url 'customers_detail' i.pk %}"> {{ i.full_name }}</a></strong></td>
+          <td>{{i.phone}}</td>
+          <td><span class="badge bg-label-primary me-1">{{  i | in_data }}</span></td>
+          <td>
+            <div class="dropdown">
+              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'edit' i.pk %}"><i class="bx bx-edit-alt me-1"></i> Tahrirlash</a>
+                <a class="dropdown-item" href="{% url 'customers_delete' i.pk %}"><i class="bx bx-trash me-1"></i> O'chirish</a>
+              </div>
+            </div>
+          </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+        
+      </tbody>
+    </table>
+  </div>
+</div>
+<!--/ Striped Rows -->
+
+<hr class="my-5">
+
+
+{% endblock content %}
